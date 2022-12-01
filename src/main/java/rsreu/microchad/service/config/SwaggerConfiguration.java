@@ -33,7 +33,8 @@ public class SwaggerConfiguration {
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("api-v1.0")
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("rsreu.microchad.service.contollers.v1"))
+                .apis(RequestHandlerSelectors.basePackage("rsreu.microchad.service.contollers"))
+                .paths(PathSelectors.ant("/api/v1/**"))
                 .build()
                 .apiInfo(apiInfo());
     }
