@@ -20,8 +20,8 @@ public class SwaggerConfiguration {
     private ApiInfo apiInfo() {
         return new ApiInfo("HR App",
                 "API для управления персоналом.",
-                "1.0",
-                "Terms of service",
+                "v1.0",
+                "terms",
                 new Contact("test", "www.org.com", "test@emaildomain.com"),
                 "License of API",
                 "API license URL",
