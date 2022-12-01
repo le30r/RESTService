@@ -1,5 +1,7 @@
 package rsreu.microchad.service.dto;
 
+import rsreu.microchad.service.entities.Role;
+
 public class RoleDto {
     private Long id;
     private String name;

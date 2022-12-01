@@ -1,9 +1,10 @@
 package rsreu.microchad.service.entities;
 
 import jakarta.persistence.*;
+import liquibase.datatype.core.DateType;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 @Entity
@@ -17,13 +18,13 @@ public class Employee {
     @Column
     private String name;
 
-    @Column
+    @Column(name = "middlename")
     private String middleName;
 
     @Column
     private String lastName;
 
-    @Column
+    @Column(name = "birthdate")
     private Date birthday;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")

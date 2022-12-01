@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor
+@Table(name = "department_project")
 @IdClass(DepartmentProjectID.class)
 public class DepartmentProject {
     @Id

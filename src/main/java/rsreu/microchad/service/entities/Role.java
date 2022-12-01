@@ -16,7 +16,7 @@ public class Role {
     @Column
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "role")
     private List<EmployeeRole> node;
 
     public Long getId() {

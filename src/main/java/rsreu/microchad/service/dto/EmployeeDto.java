@@ -1,5 +1,7 @@
 package rsreu.microchad.service.dto;
 
+import rsreu.microchad.service.entities.Employee;
+
 import java.util.Date;
 
 public class EmployeeDto {

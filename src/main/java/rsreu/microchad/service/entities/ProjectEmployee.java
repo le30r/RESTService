@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor
+@Table(name = "projects_employee")
 @IdClass(ProjectEmployeeID.class)
 public class ProjectEmployee {
     @Id
@@ -32,4 +33,5 @@ public class ProjectEmployee {
     public void setEmployee(Employee employee) {
         this.employee = employee;
     }
+
 }

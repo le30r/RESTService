@@ -1,5 +1,7 @@
 package rsreu.microchad.service.dto;
 
+import rsreu.microchad.service.entities.Department;
+
 public class DepartmentDto {
     private Long id;
     private String name;
