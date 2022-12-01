@@ -10,11 +10,7 @@ name: Java CI with Maven
 
 on:
   push:
-    branches:
-      -ivan
   pull_request:
-    branches: 
-      -ivan
   workflow_dispatch:
 
 jobs:
