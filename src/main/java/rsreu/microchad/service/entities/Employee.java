@@ -1,9 +1,8 @@
 package rsreu.microchad.service.entities;
 
-import jakarta.persistence.*;
-import liquibase.datatype.core.DateType;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;
 

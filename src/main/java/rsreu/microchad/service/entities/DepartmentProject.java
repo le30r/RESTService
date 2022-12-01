@@ -1,7 +1,9 @@
 package rsreu.microchad.service.entities;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
