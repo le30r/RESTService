@@ -22,7 +22,7 @@ public class SwaggerConfiguration {
                 "API для управления персоналом.",
                 "v1.0",
                 "terms",
-                new Contact("test", "www.org.com", "test@emaildomain.com"),
+                new Contact("Microchad", "rsreu.ru", "le30r@ya.ru"),
                 "License of API",
                 "API license URL",
                 Collections.emptyList());
