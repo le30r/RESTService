@@ -1,5 +1,7 @@
 package rsreu.microchad.service.dto;
 
+import rsreu.microchad.service.entities.EmployeeRole;
+
 public class EmployeeRoleDto {
     private Long role;
     private Long employee;
@@ -7,9 +9,9 @@ public class EmployeeRoleDto {
 
     public static EmployeeRoleDto toModel(EmployeeRole entity) {
         EmployeeRoleDto dto = new EmployeeRoleDto();
-        dto.setEmployee(entity.getEmployee());
-        dto.setDepartment(entity.getDepartment());
-        dto.setRole(entity.getRole());
+        dto.setEmployee(entity.getEmployee().getId());
+        dto.setDepartment(entity.getDepartment().getId());
+        dto.setRole(entity.getRole().getId());
         return dto;
     }
 
