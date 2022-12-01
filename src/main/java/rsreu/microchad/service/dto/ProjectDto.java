@@ -1,8 +1,10 @@
 package rsreu.microchad.service.dto;
 
+import rsreu.microchad.service.entities.Project;
+
 public class ProjectDto {
     private Long id;
-    private Long name;
+    private String name;
 
     public static ProjectDto toModel (Project entity) {
         ProjectDto dto = new ProjectDto();
@@ -22,11 +24,11 @@ public class ProjectDto {
         this.id = id;
     }
 
-    public Long getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(Long name) {
+    public void setName(String name) {
         this.name = name;
     }
 }

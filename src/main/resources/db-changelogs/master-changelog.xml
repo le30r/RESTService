@@ -12,5 +12,7 @@
     </changeSet>
 
     <include file="changelog-v.1.0.0/01-db-changeset.xml" relativeToChangelogFile="true"/>
+    <include file="changelog-v.1.0.0/02-db-changeset.xml" relativeToChangelogFile="true"/>
+    <include file="changelog-v.1.0.0/03-db-changeset.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>
