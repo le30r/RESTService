@@ -42,9 +42,8 @@ public class EmployeeController {
     @GetMapping(value = "/id={id}")
     @ApiOperation(value = "Получение информации о работнике")
     public ResponseEntity get(@PathVariable Long id) {
-        var result = employeeService.findById(id);
         try {
-            return new ResponseEntity<>(employeeService.findById(id), HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(employeeService.findById(id), HttpStatus.OK);
         }
         catch (NoSuchElementException exception) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
