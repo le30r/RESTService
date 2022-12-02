@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
-
+import java.util.stream.Collectors;
 
 @Service
 public class EmployeeService {
@@ -38,16 +38,20 @@ public class EmployeeService {
         return true;
     }
 
-    public Employee findById(Long id) {
+    public EmployeeDto findById(Long id) {
         Optional<Employee> employee = repository.findById(id);
         if (employee.isPresent()) {
-            return employee.get();
+            return EmployeeDto.toModel(employee.get());
         }
         throw new NoSuchElementException();
     }
 
-    public List<EmployeeDto> findAll()  {
-        return StreamSupport.stream(repository.findAll().spliterator(), true).map(EmployeeDto::toModel).toList();
+
+    @Transactional
+    public List<EmployeeDto> findAll() {
+        return StreamSupport.stream(repository.findAll().spliterator(), false)
+                .map(EmployeeDto::toModel)
+                .collect(Collectors.toList());
     }
 
 
