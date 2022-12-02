@@ -16,8 +16,8 @@ on:
 jobs:
   build:
 
-    #runs-on: ubuntu-latest
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
+    #runs-on: self-hosted
 
     steps:
     - uses: actions/checkout@v3
@@ -36,7 +36,6 @@ jobs:
 
     - name: Starting application
       run: java ServiceApplication.java
-
 
     - name: Build & push Docker image
       uses: mr-smithers-excellent/docker-build-push@v5
