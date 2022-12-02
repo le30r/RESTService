@@ -36,10 +36,10 @@ public class EmployeeService {
         return true;
     }
 
-    public Employee findById(Long id) {
+    public EmployeeDto findById(Long id) {
         Optional<Employee> employee = repository.findById(id);
         if (employee.isPresent()) {
-            return employee.get();
+            return EmployeeDto.toModel(employee.get());
         }
         throw new NoSuchElementException();
     }
