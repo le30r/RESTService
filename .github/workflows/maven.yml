@@ -47,12 +47,12 @@ jobs:
           using: 'docker'
           image: 'Dockerfile'
 
-  start:
-    services:
-      rest-beeline:
-        image: le30r/rest-beeline
-        ports:
-          -8080:8080
-    steps:
-      -name: Start rest-beeline
-      run: https://localhost:8080/
+#  start:
+      #    services:
+        #      rest-beeline:
+        #        image: le30r/rest-beeline
+          #        ports:
+    #          -8080:8080
+      #    steps:
+      #      -name: Start rest-beeline
+#      run: https://localhost:8080/
