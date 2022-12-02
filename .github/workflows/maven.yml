@@ -48,7 +48,6 @@ jobs:
           image: 'Dockerfile'
 
   start:
-    runs-on: self-hosted
     services:
       rest-beeline:
         image: le30r/rest-beeline
