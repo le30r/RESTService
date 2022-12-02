@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet id="05" author="postgres">
+        <addPrimaryKey tableName="department_project" columnNames="department, project" constraintName="composite_key_dp"/>
+        <addPrimaryKey tableName="projects_employee" columnNames="employee, project" constraintName="composite_key_pe"/>
+        <addPrimaryKey tableName="employee_role" columnNames="employee, role, department" constraintName="composite_key_er"/>
+    </changeSet>
+
+
+
+</databaseChangeLog>

@@ -9,8 +9,11 @@ import rsreu.microchad.service.entities.Employee;
 import rsreu.microchad.service.repositories.EmployeeRepository;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class EmployeeService {
@@ -42,6 +45,12 @@ public class EmployeeService {
             return EmployeeDto.toModel(employee.get());
         }
         throw new NoSuchElementException();
+    }
+
+    public List<EmployeeDto> findAll() {
+        return StreamSupport.stream(repository.findAll().spliterator(), false)
+                .map(EmployeeDto::toModel)
+                .collect(Collectors.toList());
     }
 
     public boolean update(EmployeeDto dto) {
