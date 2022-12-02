@@ -37,7 +37,7 @@ public class EmployeeController {
     public ResponseEntity get(@PathVariable Long id) {
         var result = employeeService.findById(id);
         try {
-            return new ResponseEntity<>(EmployeeDto.toModel(employeeService.findById(id)), HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(employeeService.findById(id), HttpStatus.ACCEPTED);
         }
         catch (NoSuchElementException exception) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
