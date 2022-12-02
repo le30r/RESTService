@@ -10,23 +10,5 @@ import java.util.List;
 @AllArgsConstructor
 public class ProjectService {
 
-    public boolean save(ProjectDto dto) {
 
-    }
-
-    public boolean delete(Long id) {
-
-    }
-
-    public boolean update(ProjectDto dto) {
-
-    }
-
-    public ProjectDto findById(Long id) {
-
-    }
-
-    public List<ProjectDto> findAll() {
-
-    }
 }
