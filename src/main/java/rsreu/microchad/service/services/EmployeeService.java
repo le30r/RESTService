@@ -3,14 +3,14 @@ package rsreu.microchad.service.services;
 
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import rsreu.microchad.service.dto.EmployeeDto;
 import rsreu.microchad.service.entities.Employee;
 import rsreu.microchad.service.repositories.EmployeeRepository;
-
 import java.sql.Date;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+
 
 @Service
 public class EmployeeService {
@@ -57,4 +57,13 @@ public class EmployeeService {
         return true;
     }
 
+    @Transactional
+    public EmployeeDto update(Long id, EmployeeDto employeeDto) throws NullPointerException {
+        Employee employee = repository.findById(id).orElseThrow(NullPointerException::new);
+        employee.setBirthday(employeeDto.getBirthdate());
+        employee.setName(employee.getName());
+        employee.setMiddleName(employee.getMiddleName());
+        employee.setLastName(employee.getLastName());
+        return EmployeeDto.toModel(employee);
+    }
 }

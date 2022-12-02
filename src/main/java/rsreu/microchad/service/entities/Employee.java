@@ -3,6 +3,7 @@ package rsreu.microchad.service.entities;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import rsreu.microchad.service.dto.EmployeeDto;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -14,6 +15,14 @@ import java.util.List;
 @AllArgsConstructor
 @Table(name = "employee")
 public class Employee {
+
+    public Employee(EmployeeDto employeeDto) {
+        id = employeeDto.getId();
+        name = employeeDto.getName();
+        middleName = employeeDto.getMiddleName();
+        lastName = employeeDto.getLastName();
+        birthday = employeeDto.getBirthdate();
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
