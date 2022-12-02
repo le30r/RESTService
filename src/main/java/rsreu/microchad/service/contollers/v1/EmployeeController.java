@@ -47,8 +47,7 @@ public class EmployeeController {
     @GetMapping(value = "/")
     @ApiOperation(value = "Получение информации о всех работниках")
     public ResponseEntity<List<EmployeeDto>> getAll() {
-        //return new ResponseEntity<>(employeeService.findAll(), HttpStatus.OK);
-        throw new NotImplementedException();
+        return new ResponseEntity<>(employeeService.findAll(), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/id={id}")
@@ -60,12 +59,12 @@ public class EmployeeController {
 
     @PutMapping(value = "/id={id}")
     @ApiOperation(value = "Обновление работника")
-    public ResponseEntity<EmployeeDto> update(@PathVariable Long id, @RequestBody EmployeeDto employee) {
+    public ResponseEntity<Boolean> update(@PathVariable Long id, @RequestBody EmployeeDto employee) {
         if (Objects.equals(id, employee.getId())) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         try {
-           return new ResponseEntity<>(employeeService.update(id, employee), HttpStatus.OK);
+           return new ResponseEntity<>(employeeService.update(employee), HttpStatus.OK);
        }
        catch (NullPointerException exception) {
            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
