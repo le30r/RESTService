@@ -90,6 +90,7 @@
                 </configuration>
             </plugin>
         </plugins>
+        <finalName>rest-beeline</finalName>
     </build>
 
 </project>
