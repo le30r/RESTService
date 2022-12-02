@@ -9,25 +9,7 @@ import java.util.List;
 @Service
 public class DepartmentProjectService {
 
-    public boolean save(DepartmentProjectDto dto) {
 
-    }
-
-    public boolean delete(Long id) {
-
-    }
-
-    public boolean update(DepartmentProjectDto dto) {
-
-    }
-
-    public DepartmentProjectDto findById(Long id) {
-
-    }
-
-    public List<DepartmentProjectDto> findAll() {
-
-    }
 
 
 

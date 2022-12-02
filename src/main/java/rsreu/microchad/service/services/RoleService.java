@@ -11,25 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 public class RoleService {
 
-    public boolean save(RoleDto dto) {
 
-    }
-
-    public boolean delete(Long id) {
-
-    }
-
-    public boolean update(RoleDto dto) {
-
-    }
-
-    public RoleDto findById(Long id) {
-
-    }
-
-    public List<RoleDto> findAll() {
-
-    }
 
 
 }
