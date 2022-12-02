@@ -43,6 +43,7 @@ jobs:
         run: |
           docker stop rest_beeline || true
           docker container rm rest_beeline || true
+          docker rmi le30r/rest-beeline || true
 
       - name: Pull image from remote repo
         run: docker pull le30r/rest-beeline
