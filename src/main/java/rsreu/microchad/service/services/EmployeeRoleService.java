@@ -10,5 +10,25 @@ import java.util.List;
 @Service
 public class EmployeeRoleService {
 
+    public boolean save(EmployeeRoleDto dto) {
+
+    }
+
+    public boolean delete(Long id) {
+
+    }
+
+    public boolean update(EmployeeRoleDto dto) {
+
+    }
+
+    public EmployeeRoleDto findById(Long id) {
+
+    }
+
+    public List<EmployeeRoleDto> findAll() {
+
+    }
+
 
 }
