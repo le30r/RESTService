@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - "mike"
+      - "master"
   pull_request:
     branches:
       - "master"
@@ -12,7 +13,6 @@ on:
 jobs:
   build:
     runs-on: self-hosted
-
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -41,3 +41,14 @@ jobs:
           dockerfile: Dockerfile
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Stop and remove container
+        run: |
+          docker stop rest_beeline || true
+          docker container rm rest_beeline || true
+
+      - name: Pull image from remote repo
+        run: docker pull le30r/rest-beeline
+
+      - name: Start container
+        run: docker run -d -p 8080:8080 --name rest_beeline le30r/rest-beeline
