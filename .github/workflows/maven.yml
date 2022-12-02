@@ -41,3 +41,12 @@ jobs:
           dockerfile: Dockerfile
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Run the build process with Docker
+          uses: addnab/docker-run-action@v3
+          with:
+            image: le30r/rest-beeline:latest
+            run: |
+              composer install
+              npm install
+              npm run production
