@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import rsreu.microchad.service.entities.Employee;
 
-import java.util.Date;
+import java.sql.Date;
 
 @Builder
 @AllArgsConstructor
