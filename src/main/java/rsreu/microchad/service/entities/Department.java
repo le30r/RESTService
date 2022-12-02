@@ -1,12 +1,14 @@
 package rsreu.microchad.service.entities;
 
 
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Builder
 @NoArgsConstructor
 @Table(name = "departments")
 public class Department {

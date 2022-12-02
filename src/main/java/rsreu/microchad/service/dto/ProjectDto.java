@@ -1,7 +1,9 @@
 package rsreu.microchad.service.dto;
 
+import lombok.Builder;
 import rsreu.microchad.service.entities.Project;
 
+@Builder
 public class ProjectDto {
     private Long id;
     private String name;

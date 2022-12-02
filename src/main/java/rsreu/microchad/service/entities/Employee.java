@@ -1,5 +1,7 @@
 package rsreu.microchad.service.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -7,7 +9,9 @@ import java.sql.Date;
 import java.util.List;
 
 @Entity
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "employee")
 public class Employee {
     @Id
