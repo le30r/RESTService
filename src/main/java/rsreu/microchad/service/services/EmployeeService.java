@@ -9,6 +9,7 @@ import rsreu.microchad.service.entities.Employee;
 import rsreu.microchad.service.repositories.EmployeeRepository;
 
 import java.sql.Date;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -37,10 +38,10 @@ public class EmployeeService {
 
     public Employee findById(Long id) {
         Optional<Employee> employee = repository.findById(id);
-        if (employee.isEmpty()) {
-            return null;
+        if (employee.isPresent()) {
+            return employee.get();
         }
-        return employee.get();
+        throw new NoSuchElementException();
     }
 
     public boolean update(EmployeeDto dto) {
