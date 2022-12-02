@@ -44,8 +44,8 @@ jobs:
 
       - name: Stop and remove container
         run: |
-          docker stop rest_beeline
-          docker container rm rest_beeline
+          docker stop rest_beeline || true
+          docker container rm rest_beeline || true
 
       - name: Pull image from remote repo
         run: docker pull le30r/rest-beeline
