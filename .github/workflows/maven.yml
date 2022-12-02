@@ -6,7 +6,7 @@ on:
       - "mike"
   pull_request:
     branches:
-      - "main"
+      - "master"
   workflow_dispatch:
 
 jobs:

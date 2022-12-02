@@ -3,7 +3,7 @@ name: Testing in a Branch
 on:
   push:
     branches-ignore:
-      - "main"
+      - "master"
   workflow_dispatch:
 
 jobs:
