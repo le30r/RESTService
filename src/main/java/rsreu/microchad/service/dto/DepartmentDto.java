@@ -2,10 +2,12 @@ package rsreu.microchad.service.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 import rsreu.microchad.service.entities.Department;
 
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class DepartmentDto {
     private Long id;
     private String name;
@@ -15,9 +17,6 @@ public class DepartmentDto {
         dto.setId(entity.getId());
         dto.setName(entity.getName());
         return dto;
-    }
-
-    public DepartmentDto() {
     }
 
     public Long getId() {
