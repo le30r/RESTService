@@ -8,8 +8,10 @@ import rsreu.microchad.service.dto.EmployeeDto;
 import rsreu.microchad.service.entities.Employee;
 import rsreu.microchad.service.repositories.EmployeeRepository;
 import java.sql.Date;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
 
 
 @Service
@@ -44,6 +46,12 @@ public class EmployeeService {
         throw new NoSuchElementException();
     }
 
+    public List<EmployeeDto> findAll()  {
+        return StreamSupport.stream(repository.findAll().spliterator(), true).map(EmployeeDto::toModel).toList();
+    }
+
+
+    @Transactional
     public boolean update(EmployeeDto dto) {
         Optional<Employee> employee = repository.findById(dto.getId());
         if (employee.isPresent()) {
@@ -53,17 +61,10 @@ public class EmployeeService {
             entity.setLastName(dto.getLastName());
             entity.setBirthday(new Date(dto.getBirthdate().getTime()));
             repository.save(entity);
+            return true;
+        } else {
+            throw new NoSuchElementException();
         }
-        return true;
     }
 
-    @Transactional
-    public EmployeeDto update(Long id, EmployeeDto employeeDto) throws NullPointerException {
-        Employee employee = repository.findById(id).orElseThrow(NullPointerException::new);
-        employee.setBirthday(employeeDto.getBirthdate());
-        employee.setName(employee.getName());
-        employee.setMiddleName(employee.getMiddleName());
-        employee.setLastName(employee.getLastName());
-        return EmployeeDto.toModel(employee);
-    }
 }
