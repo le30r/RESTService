@@ -2,11 +2,17 @@ package rsreu.microchad.service.contollers.v1;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import liquibase.pro.packaged.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import rsreu.microchad.service.dto.DepartmentDto;
+import rsreu.microchad.service.dto.DepartmentProjectDto;
 import rsreu.microchad.service.dto.ProjectDto;
+import rsreu.microchad.service.entities.DepartmentProject;
+import rsreu.microchad.service.services.DepartmentProjectService;
+import rsreu.microchad.service.services.DepartmentsService;
 import rsreu.microchad.service.services.ProjectService;
 
 import java.util.List;
@@ -17,11 +23,13 @@ import java.util.NoSuchElementException;
 @RequestMapping("/api/v1/project")
 public class ProjectController {
 
-    @Autowired
     private ProjectService projectService;
+    private DepartmentProjectService departmentProjectService;
 
-    ProjectController(@Autowired ProjectService projectService) {
+    ProjectController(@Autowired ProjectService projectService,
+                      @Autowired DepartmentProjectService departmentProjectService) {
         this.projectService = projectService;
+        this.departmentProjectService = departmentProjectService;
     }
 
     @ApiOperation(value = "Получить информацию о проекте")
@@ -72,4 +80,17 @@ public class ProjectController {
         }
     }
 
+    @ApiOperation(value = "Добавить для проекта ответственное подразделение")
+    @PostMapping(value = "/id={id}/department")
+    public ResponseEntity addDepartment(@PathVariable Long id, @RequestBody DepartmentDto departmentDto) {
+        try {
+            departmentProjectService.save(DepartmentProjectDto.builder()
+                    .project(id)
+                    .department(departmentDto.getId())
+                    .build());
+        } catch (NoSuchElementException exception) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok("ok");
+    }
 }

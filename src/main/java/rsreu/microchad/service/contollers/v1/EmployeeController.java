@@ -8,6 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import rsreu.microchad.service.dto.EmployeeDto;
+import rsreu.microchad.service.dto.EmployeeRoleDto;
+import rsreu.microchad.service.dto.RoleDto;
+import rsreu.microchad.service.repositories.EmployeeRoleRepository;
+import rsreu.microchad.service.services.EmployeeRoleService;
 import rsreu.microchad.service.services.EmployeeService;
 
 import java.util.List;
@@ -19,10 +23,13 @@ import java.util.Objects;
 @RestController
 public class EmployeeController {
 
-    EmployeeService employeeService;
+    private EmployeeService employeeService;
+    private EmployeeRoleService employeeRoleService;
 
-    public EmployeeController(@Autowired EmployeeService employeeService) {
+    public EmployeeController(@Autowired EmployeeService employeeService,
+                              @Autowired EmployeeRoleService employeeRoleService) {
         this.employeeService = employeeService;
+        this.employeeRoleService = employeeRoleService;
     }
 
     @PostMapping(value = "/")
@@ -67,5 +74,21 @@ public class EmployeeController {
            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
        }
     }
+
+    @ApiOperation(value = "/id={id}/dep={dep}/role")
+    @PostMapping(value = "Добавление роли работнику")
+    public ResponseEntity addRole(@PathVariable Long id, @PathVariable Long dep, @RequestBody RoleDto role) {
+        try {
+            employeeRoleService.save(EmployeeRoleDto.builder()
+                    .employee(id)
+                    .role(role.getId())
+                    .department(dep)
+                    .build());
+        } catch (NoSuchElementException exception) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok("ok");
+    }
+
 
 }
