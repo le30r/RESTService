@@ -1,22 +1,28 @@
 package rsreu.microchad.service.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import rsreu.microchad.service.entities.Employee;
 
 import java.util.Date;
 
+@Builder
+@AllArgsConstructor
 public class EmployeeDto {
     private Long id;
     private String name;
     private String middleName;
     private String lastName;
+    private Date birthdate;
 
     public static EmployeeDto toModel(Employee entity) {
-        EmployeeDto dto = new EmployeeDto();
-        dto.setId(entity.getId());
-        dto.setName(entity.getName());
-        dto.setMiddleName(entity.getMiddleName());
-        dto.setLastName(entity.getLastName());
-        return dto;
+        return EmployeeDto.builder()
+                .id(entity.getId())
+                .name(entity.getName())
+                .middleName(entity.getMiddleName())
+                .lastName(entity.getLastName())
+                .birthdate(entity.getBirthday())
+                .build();
     }
 
     public EmployeeDto() {
@@ -62,6 +68,4 @@ public class EmployeeDto {
     public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
     }
-
-    private Date birthdate;
 }

@@ -1,7 +1,11 @@
 package rsreu.microchad.service.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import rsreu.microchad.service.entities.Role;
 
+@Builder
+@AllArgsConstructor
 public class RoleDto {
     private Long id;
     private String name;

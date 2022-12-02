@@ -1,10 +1,12 @@
 package rsreu.microchad.service.entities;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;
 
 @Data
+@Builder
 public class EmployeeRoleID implements Serializable {
     private Long role;
     private Long employee;

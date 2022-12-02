@@ -1,7 +1,11 @@
 package rsreu.microchad.service.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import rsreu.microchad.service.entities.Department;
 
+@Builder
+@AllArgsConstructor
 public class DepartmentDto {
     private Long id;
     private String name;

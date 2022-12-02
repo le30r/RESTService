@@ -1,6 +1,8 @@
 package rsreu.microchad.service.entities;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
@@ -8,7 +10,9 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @IdClass(EmployeeRoleID.class)
 public class EmployeeRole implements Serializable {
     @Id

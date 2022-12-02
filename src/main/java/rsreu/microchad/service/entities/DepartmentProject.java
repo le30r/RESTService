@@ -1,12 +1,17 @@
 package rsreu.microchad.service.entities;
 
 import javax.persistence.*;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "department_project")
 @IdClass(DepartmentProjectID.class)
 public class DepartmentProject {

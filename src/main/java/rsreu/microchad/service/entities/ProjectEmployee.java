@@ -3,10 +3,15 @@ package rsreu.microchad.service.entities;
 
 import javax.persistence.*;
 import java.util.List;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "projects_employee")
 @IdClass(ProjectEmployeeID.class)
 public class ProjectEmployee {
