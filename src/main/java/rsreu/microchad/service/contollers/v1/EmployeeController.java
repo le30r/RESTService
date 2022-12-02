@@ -59,15 +59,12 @@ public class EmployeeController {
 
     @PutMapping(value = "/id={id}")
     @ApiOperation(value = "Обновление работника")
-    public ResponseEntity<Boolean> update(@PathVariable Long id, @RequestBody EmployeeDto employee) {
-        if (Objects.equals(id, employee.getId())) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<Boolean> update(@RequestBody EmployeeDto employee) {
         try {
            return new ResponseEntity<>(employeeService.update(employee), HttpStatus.OK);
        }
-       catch (NullPointerException exception) {
-           return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+       catch (NoSuchElementException exception) {
+           return new ResponseEntity<>(HttpStatus.NOT_FOUND);
        }
     }
 

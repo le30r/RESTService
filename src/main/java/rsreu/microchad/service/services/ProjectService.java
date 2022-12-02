@@ -46,6 +46,9 @@ public class ProjectService {
             entity.setName(dto.getName());
             repository.save(entity);
         }
+        else {
+            throw new NoSuchElementException();
+        }
         return true;
     }
 
