@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-@Api
+@Api(tags = "Управление сотрудниками")
 @RequestMapping("/api/v1/employee")
 @RestController
 public class EmployeeController {

@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
-@Api
+@Api(tags = "Управление ролями")
 @RequestMapping("/api/v1/role")
 public class RoleController {
 
