@@ -15,30 +15,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import rsreu.microchad.service.dto.DepartmentDto;
-import rsreu.microchad.service.dto.DepartmentProjectDto;
-import rsreu.microchad.service.dto.ProjectDto;
-import rsreu.microchad.service.entities.DepartmentProject;
+import rsreu.microchad.service.dto.*;
 import rsreu.microchad.service.services.DepartmentProjectService;
-import rsreu.microchad.service.services.DepartmentsService;
+import rsreu.microchad.service.services.ProjectEmployeeService;
 import rsreu.microchad.service.services.ProjectService;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
-@Api
+@Api(tags = "Управление проектами")
 @RequestMapping("/api/v1/project")
 public class ProjectController {
 
     private ProjectService projectService;
     private DepartmentProjectService departmentProjectService;
+    private ProjectEmployeeService projectEmployeeService;
 
 
     ProjectController(@Autowired ProjectService projectService,
-                      @Autowired DepartmentProjectService departmentProjectService) {
+                      @Autowired DepartmentProjectService departmentProjectService,
+                      @Autowired ProjectEmployeeService projectEmployeeService) {
         this.projectService = projectService;
         this.departmentProjectService = departmentProjectService;
+        this.projectEmployeeService = projectEmployeeService;
     }
 
 
@@ -62,7 +62,7 @@ public class ProjectController {
         }
     }
     @GetMapping(value = "/")
-    @Operation(summary = "Получить информацию всех проектах",
+    @Operation(summary = "Получить информацию о всех проектах",
             description = "Возвращает список всех проектов",
             responses = {
                     @ApiResponse(responseCode = "200",
@@ -83,7 +83,6 @@ public class ProjectController {
                             description = "Информация успешно обновлена",
                             content = @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = Boolean.class))),
-                    @ApiResponse(responseCode = "404", description = "Проект с такими параметрами не найден"),
                     @ApiResponse(responseCode = "404", description = "Проект с такими параметрами не найден"),
                     @ApiResponse(responseCode = "401", description = "Требуется авторизация"),
                     @ApiResponse(responseCode = "403", description = "Доступ запрещен"),
@@ -147,7 +146,7 @@ public class ProjectController {
             description = "Добавление ответственного подразделения для проекта",
             responses = {
                     @ApiResponse(responseCode = "200",
-                            description = "Удаление произошло успешно",
+                            description = "Добавление произошло успешно",
                             content = @Content(mediaType = "application/json",
                                     array = @ArraySchema(schema = @Schema(implementation = ResponseEntity.class)))),
                     @ApiResponse(responseCode = "201", description = "Добавлено успешно"),
@@ -172,4 +171,54 @@ public class ProjectController {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @Operation(summary = "Получить информацию о сотрудниках на проекте",
+            responses = {
+                    @ApiResponse(responseCode = "200",
+                            description = "Список сотрудников",
+                            content = @Content(mediaType = "application/json",
+                                    array = @ArraySchema(schema = @Schema(implementation = EmployeeDto.class)))),
+                    @ApiResponse(responseCode = "404", description = "Проект с таким id не найден"),
+                    @ApiResponse(responseCode = "401", description = "Требуется авторизация"),
+                    @ApiResponse(responseCode = "403", description = "Доступ запрещен"),
+            })
+    @GetMapping(value = "/{id}/employees")
+    public ResponseEntity<List<EmployeeDto>> getEmployees(@ApiParam("ID проекта") @PathVariable Long id) {
+        try {
+            return new ResponseEntity<>(projectEmployeeService.findAllEmployees(id), HttpStatus.OK);
+        }
+        catch (NoSuchElementException exception) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @Operation(summary = "Добавить сотрудника на проект",
+            responses = {
+                    @ApiResponse(responseCode = "200",
+                            description = "Добавление произошло успешно",
+                            content = @Content(mediaType = "application/json",
+                                    array = @ArraySchema(schema = @Schema(implementation = ResponseEntity.class)))),
+                    @ApiResponse(responseCode = "201", description = "Добавлено успешно"),
+                    @ApiResponse(responseCode = "400", description = "Ошибка в запросе"),
+                    @ApiResponse(responseCode = "401", description = "Требуется авторизация"),
+                    @ApiResponse(responseCode = "403", description = "Доступ запрещен"),
+                    @ApiResponse(responseCode = "404", description = "Проект или работник с таким ID не найден"),
+            })
+    @PostMapping(value = "/id={id}&employee={employee}")
+    public ResponseEntity addEmployee(@ApiParam("ID проекта") @PathVariable Long id,
+                                        @ApiParam("Номер сотрудника") @PathVariable Long employee) {
+        try {
+            projectEmployeeService.save(ProjectEmployeeDto.builder()
+                            .employee(employee)
+                            .project(id)
+                    .build());
+        } catch (NoSuchElementException exception) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (IllegalArgumentException exception) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }

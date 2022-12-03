@@ -63,11 +63,14 @@ public class ProjectEmployeeService {
         return repository.findByEmployee(employee).stream().map(ProjectEmployeeDto::toModel).collect(Collectors.toList());
     }
 
-    public List<ProjectEmployeeDto> findByProject(Long project) {
+    public List<ProjectEmployeeDto> findByProject(Project project) {
         return repository.findByProject(project).stream().map(ProjectEmployeeDto::toModel).collect(Collectors.toList());
     }
 
-    public List<EmployeeDto> findAllEmployees(Long project) {
+    public List<EmployeeDto> findAllEmployees(Long projectID) {
+       var project =  Project.builder()
+                .id(projectID)
+                .build();
        return repository.findByProject(project)
                 .stream()
                 .map(ProjectEmployee::getEmployee)
