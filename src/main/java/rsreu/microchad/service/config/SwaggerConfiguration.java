@@ -18,13 +18,13 @@ import static springfox.documentation.builders.PathSelectors.regex;
 @Configuration
 public class SwaggerConfiguration {
     private ApiInfo apiInfo() {
-        return new ApiInfo("HR App",
+        return new ApiInfo("Управление персоналом",
                 "API для управления персоналом.",
                 "v1.0",
-                "terms",
-                new Contact("Microchad", "rsreu.ru", "le30r@ya.ru"),
-                "License of API",
-                "API license URL",
+                "/#",
+                new Contact("Microchad", "https://rsreu.ru", "le30r@ya.ru"),
+                "Apache 2.0",
+                "/#",
                 Collections.emptyList());
     }
 
@@ -35,6 +35,17 @@ public class SwaggerConfiguration {
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("rsreu.microchad.service.contollers"))
                 .paths(PathSelectors.ant("/api/v1/**"))
+                .build()
+                .apiInfo(apiInfo());
+    }
+
+    @Bean
+    public Docket apiV2() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("api-v2.0")
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("rsreu.microchad.service.contollers"))
+                .paths(PathSelectors.ant("/api/v2/**"))
                 .build()
                 .apiInfo(apiInfo());
     }
