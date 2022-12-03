@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rsreu.microchad.service.dto.DepartmentDto;
 import rsreu.microchad.service.entities.Department;
+import rsreu.microchad.service.entities.Employee;
 import rsreu.microchad.service.repositories.DepartmentRepository;
 
 import java.util.ArrayList;
@@ -47,8 +48,12 @@ public class DepartmentsService {
     }
 
     public boolean delete(Long id) {
-        repository.deleteById(id);
-        return true;
+        Optional<Department> department = repository.findById(id);
+        if (department.isPresent()) {
+            repository.delete(department.get());
+            return true;
+        }
+        throw new NoSuchElementException();
     }
 
     public boolean update(DepartmentDto dto) {
