@@ -47,7 +47,7 @@ public class EmployeeControllerTest {
 
     @Test
     public void add() throws Exception {
-        Long id = 3L;
+        Long id = 10L;
         EmployeeDto dto = EmployeeDto.builder().id(id).build();
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
@@ -63,7 +63,7 @@ public class EmployeeControllerTest {
 
     @Test
     public void getAll() throws Exception {
-        Long id = 3L;
+        Long id = 10L;
         //when(repository.findById(id)).thenReturn(Optional.of(Employee.builder().name("Ivan").build()));
         when(service.findById(id)).thenReturn(EmployeeDto.builder().name("Ivan").build());
         mockMvc.perform(get("/api/v1/employee/id={id}", id))
@@ -73,7 +73,7 @@ public class EmployeeControllerTest {
 
     @Test
     public void delete() throws Exception {
-        Long id = 3L;
+        Long id = 10L;
         when(service.delete(id)).thenReturn(true);
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/employee/id={id}", id))
                 .andExpect(status().isOk())
@@ -91,7 +91,7 @@ public class EmployeeControllerTest {
     @Test
     //TODO YOU NEED TO FIX UPDATE METHOD
     public void testUpdateNotFound() throws Exception {
-        Long id = 3L;
+        Long id = 10L;
         EmployeeDto dto = EmployeeDto.builder().id(id).build();
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
@@ -107,7 +107,7 @@ public class EmployeeControllerTest {
 
     @Test
     public void testUpdateMethodNotAllowed() throws Exception {
-        Long id = 3L;
+        Long id = 10L;
         mockMvc.perform(put("/api/v1/employee/id={id}", id))
                 .andExpect(status().isMethodNotAllowed())
                 .andDo(print());

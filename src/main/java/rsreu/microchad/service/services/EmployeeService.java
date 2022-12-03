@@ -28,6 +28,7 @@ public class EmployeeService {
                     .lastName(dto.getLastName())
                     .birthday(new Date(dto.getBirthdate().getTime()))
                     .build();
+            repository.save(employee);
             return true;
         }
         return false;
