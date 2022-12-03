@@ -2,7 +2,6 @@ package rsreu.microchad.service.contollers.v1;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import liquibase.pro.packaged.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,9 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import rsreu.microchad.service.dto.DepartmentDto;
 import rsreu.microchad.service.dto.DepartmentProjectDto;
 import rsreu.microchad.service.dto.ProjectDto;
-import rsreu.microchad.service.entities.DepartmentProject;
 import rsreu.microchad.service.services.DepartmentProjectService;
-import rsreu.microchad.service.services.DepartmentsService;
 import rsreu.microchad.service.services.ProjectService;
 
 import java.util.List;
@@ -37,11 +34,11 @@ public class ProjectController {
     public ResponseEntity<ProjectDto> get(@PathVariable Long id) {
         try {
             return new ResponseEntity<>(projectService.findById(id), HttpStatus.OK);
-        }
-        catch (NoSuchElementException exception) {
+        } catch (NoSuchElementException exception) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
     @GetMapping
     @ApiOperation(value = "Получить информацию о всех проектах")
     public ResponseEntity<List<ProjectDto>> getAll() {
@@ -52,9 +49,8 @@ public class ProjectController {
     @PutMapping(value = "/id={id}")
     public ResponseEntity<Boolean> update(@RequestBody ProjectDto projectDto) {
         try {
-             return new ResponseEntity<>(projectService.update(projectDto), HttpStatus.OK);
-        }
-        catch (NoSuchElementException exception) {
+            return new ResponseEntity<>(projectService.update(projectDto), HttpStatus.OK);
+        } catch (NoSuchElementException exception) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
@@ -74,8 +70,7 @@ public class ProjectController {
     public ResponseEntity remove(Long id) {
         if (projectService.delete(id)) {
             return new ResponseEntity(HttpStatus.OK);
-        }
-        else {
+        } else {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
     }

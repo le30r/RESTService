@@ -1,17 +1,14 @@
 package rsreu.microchad.service.services;
 
-import liquibase.repackaged.org.apache.commons.collections4.IteratorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rsreu.microchad.service.dto.DepartmentDto;
 import rsreu.microchad.service.entities.Department;
 import rsreu.microchad.service.repositories.DepartmentRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.logging.StreamHandler;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -37,7 +34,7 @@ public class DepartmentsService {
 
     public boolean save(DepartmentDto dto) {
         Optional<Department> department = repository.findById(dto.getId());
-        if(department.isEmpty()) {
+        if (department.isEmpty()) {
             repository.save(Department.builder()
                     .name(dto.getName())
                     .build());
@@ -53,7 +50,7 @@ public class DepartmentsService {
 
     public boolean update(DepartmentDto dto) {
         Optional<Department> optional = repository.findById(dto.getId());
-        if(optional.isPresent()) {
+        if (optional.isPresent()) {
             Department department = optional.get();
             department.setName(dto.getName());
             return true;

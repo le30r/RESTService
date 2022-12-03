@@ -10,7 +10,7 @@ public class ProjectDto {
     private Long id;
     private String name;
 
-    public static ProjectDto toModel (Project entity) {
+    public static ProjectDto toModel(Project entity) {
         ProjectDto dto = new ProjectDto();
         dto.setId(entity.getId());
         dto.setName(entity.getName());

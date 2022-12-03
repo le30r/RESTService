@@ -2,7 +2,6 @@ package rsreu.microchad.service.contollers.v1;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import liquibase.repackaged.org.apache.commons.lang3.NotImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,13 +9,11 @@ import org.springframework.web.bind.annotation.*;
 import rsreu.microchad.service.dto.EmployeeDto;
 import rsreu.microchad.service.dto.EmployeeRoleDto;
 import rsreu.microchad.service.dto.RoleDto;
-import rsreu.microchad.service.repositories.EmployeeRoleRepository;
 import rsreu.microchad.service.services.EmployeeRoleService;
 import rsreu.microchad.service.services.EmployeeService;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Objects;
 
 @Api
 @RequestMapping("/api/v1/employee")
@@ -44,8 +41,7 @@ public class EmployeeController {
     public ResponseEntity get(@PathVariable Long id) {
         try {
             return new ResponseEntity<>(employeeService.findById(id), HttpStatus.OK);
-        }
-        catch (NoSuchElementException exception) {
+        } catch (NoSuchElementException exception) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
@@ -63,19 +59,18 @@ public class EmployeeController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping(value = "/id={id}")
+    @PutMapping(value = "/")
     @ApiOperation(value = "Обновление работника")
     public ResponseEntity<Boolean> update(@RequestBody EmployeeDto employee) {
         try {
-           return new ResponseEntity<>(employeeService.update(employee), HttpStatus.OK);
-       }
-       catch (NoSuchElementException exception) {
-           return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-       }
+            return new ResponseEntity<>(employeeService.update(employee), HttpStatus.OK);
+        } catch (NoSuchElementException exception) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
-    @ApiOperation(value = "/id={id}/dep={dep}/role")
-    @PostMapping(value = "Добавление роли работнику")
+    @ApiOperation(value = "Добавление роли работнику")
+    @PostMapping(value = "/id={id}/dep={dep}/role")
     public ResponseEntity addRole(@PathVariable Long id, @PathVariable Long dep, @RequestBody RoleDto role) {
         try {
             employeeRoleService.save(EmployeeRoleDto.builder()
