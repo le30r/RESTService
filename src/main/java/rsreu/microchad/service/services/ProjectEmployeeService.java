@@ -3,6 +3,7 @@ package rsreu.microchad.service.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import rsreu.microchad.service.dto.EmployeeDto;
 import rsreu.microchad.service.dto.ProjectEmployeeDto;
 import rsreu.microchad.service.entities.Employee;
 import rsreu.microchad.service.entities.Project;
@@ -64,6 +65,15 @@ public class ProjectEmployeeService {
 
     public List<ProjectEmployeeDto> findByProject(Long project) {
         return repository.findByProject(project).stream().map(ProjectEmployeeDto::toModel).collect(Collectors.toList());
+    }
+
+    public List<EmployeeDto> findAllEmployees(Long project) {
+       return repository.findByProject(project)
+                .stream()
+                .map(ProjectEmployee::getEmployee)
+                .map(EmployeeDto::toModel)
+                .toList();
+
     }
 
     public List<ProjectEmployeeDto> findAll() {

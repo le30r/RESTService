@@ -30,26 +30,45 @@ public class DepartmentController {
 
     @ApiOperation(value = "Получить информацию об отделе")
     @GetMapping(value = "/id={id}")
-    public ResponseEntity get(Long id) {
-        return ResponseEntity.ok("ok");
+    public ResponseEntity get(@PathVariable Long id) {
+        try {
+            return new ResponseEntity<>(departmentsService.findById(id), HttpStatus.ACCEPTED);
+        }
+        catch (NoSuchElementException exception) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @ApiOperation(value = "Обновить информацию об отделе")
     @PutMapping(value = "/id={id}")
-    public ResponseEntity update(Long id, @RequestBody DepartmentDto departmentDto) {
-        return ResponseEntity.ok("ok");
+    public ResponseEntity update(@PathVariable Long id, @RequestBody DepartmentDto departmentDto) {
+        try {
+            return new ResponseEntity<>(departmentsService.update(departmentDto), HttpStatus.OK);
+        }
+        catch (NoSuchElementException exception) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @ApiOperation(value = "Добавить информацию об отделе")
     @PostMapping
     public ResponseEntity add(@RequestBody DepartmentDto departmentDto) {
-        return ResponseEntity.ok("ok");
+        if(departmentsService.save(departmentDto)) {
+            return new ResponseEntity(HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity(HttpStatus.CONFLICT);
+        }
     }
 
     @ApiOperation(value = "Удалить информацию об отделе")
     @DeleteMapping(value = "/id={id}")
-    public ResponseEntity remove(Long id) {
-        return ResponseEntity.ok("ok");
+    public ResponseEntity remove(@PathVariable Long id) {
+        try {
+            return new ResponseEntity<>(departmentsService.delete(id), HttpStatus.ACCEPTED);
+        }
+        catch (NoSuchElementException exception) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @ApiOperation(value = "Добавить прокт департаменту")

@@ -29,14 +29,19 @@ public class ProjectService {
             Project project = Project.builder()
                     .name(dto.getName())
                     .build();
+            repository.save(project);
             return true;
         }
         return false;
     }
 
     public boolean delete(Long id) {
-        repository.deleteById(id);
-        return true;
+        Optional<Project> project = repository.findById(id);
+        if (project.isPresent()) {
+            repository.delete(project.get());
+            return true;
+        }
+        throw new NoSuchElementException();
     }
 
     public boolean update(ProjectDto dto) {

@@ -34,8 +34,12 @@ public class EmployeeService {
     }
 
     public boolean delete(Long id) {
-        repository.deleteById(id);
-        return true;
+        Optional<Employee> employee = repository.findById(id);
+        if (employee.isPresent()) {
+            repository.delete(employee.get());
+            return true;
+        }
+        throw new NoSuchElementException();
     }
 
     public EmployeeDto findById(Long id) {

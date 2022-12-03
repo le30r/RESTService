@@ -8,6 +8,7 @@ import rsreu.microchad.service.dto.DepartmentDto;
 import rsreu.microchad.service.dto.DepartmentProjectDto;
 import rsreu.microchad.service.dto.RoleDto;
 import rsreu.microchad.service.entities.Department;
+import rsreu.microchad.service.entities.Employee;
 import rsreu.microchad.service.entities.Role;
 import rsreu.microchad.service.repositories.DepartmentRepository;
 import rsreu.microchad.service.repositories.RoleRepository;
@@ -52,8 +53,12 @@ public class RoleService {
     }
 
     public boolean delete(Long id) {
-        repository.deleteById(id);
-        return true;
+        Optional<Role> role = repository.findById(id);
+        if (role.isPresent()) {
+            repository.delete(role.get());
+            return true;
+        }
+        throw new NoSuchElementException();
     }
 
     public boolean update(RoleDto dto) {

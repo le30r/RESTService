@@ -26,7 +26,6 @@ public class RoleController {
     @ApiOperation(value = "Получить информацию о роли")
     @GetMapping(value = "/id={id}")
     public ResponseEntity get(@PathVariable Long id) {
-        var result = roleService.findById(id);
         try {
             return new ResponseEntity<>(roleService.findById(id), HttpStatus.ACCEPTED);
         } catch (NoSuchElementException exception) {
