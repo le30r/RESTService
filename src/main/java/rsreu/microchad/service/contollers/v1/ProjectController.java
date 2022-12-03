@@ -34,6 +34,7 @@ public class ProjectController {
     private ProjectService projectService;
     private DepartmentProjectService departmentProjectService;
 
+
     ProjectController(@Autowired ProjectService projectService,
                       @Autowired DepartmentProjectService departmentProjectService) {
         this.projectService = projectService;
@@ -75,9 +76,20 @@ public class ProjectController {
         return new ResponseEntity(projectService.findAll(), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "Обновить информацию о проекте")
-    @PutMapping(value = "/id={id}")
-    public ResponseEntity<Boolean> update(@RequestBody ProjectDto projectDto) {
+
+    @Operation(summary = "Обновить информацию о проекте",
+            responses = {
+                    @ApiResponse(responseCode = "200",
+                            description = "Информация успешно обновлена",
+                            content = @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = Boolean.class))),
+                    @ApiResponse(responseCode = "404", description = "Проект с такими параметрами не найден"),
+                    @ApiResponse(responseCode = "404", description = "Проект с такими параметрами не найден"),
+                    @ApiResponse(responseCode = "401", description = "Требуется авторизация"),
+                    @ApiResponse(responseCode = "403", description = "Доступ запрещен"),
+            })
+    @PutMapping(value = "/")
+    public ResponseEntity<Boolean> update(@ApiParam("Информация о проекте") @RequestBody ProjectDto projectDto) {
         try {
              return new ResponseEntity<>(projectService.update(projectDto), HttpStatus.OK);
         }
@@ -86,7 +98,7 @@ public class ProjectController {
         }
     }
 
-    @GetMapping
+
     @Operation(summary = "Добавить проект",
             description = "Добавление проекта в систему по описанию",
             responses = {
@@ -99,7 +111,7 @@ public class ProjectController {
                     @ApiResponse(responseCode = "403", description = "Доступ запрещен"),
                     @ApiResponse(responseCode = "409", description = "Проект с таким ID уже существует")
             })
-    @PostMapping
+    @PostMapping("/")
     public ResponseEntity add(@ApiParam("Информация о проекте") @RequestBody ProjectDto projectDto) {
         if (projectService.save(projectDto)) {
             return new ResponseEntity(HttpStatus.CREATED);
@@ -108,20 +120,45 @@ public class ProjectController {
         }
     }
 
-    @ApiOperation(value = "Удалить информацию о проекте")
+    @Operation(summary = "Удалить проект",
+            description = "Удаление информации о системе по его id",
+            responses = {
+                    @ApiResponse(responseCode = "200",
+                            description = "Удаление произошло успешно",
+                            content = @Content(mediaType = "application/json",
+                                    array = @ArraySchema(schema = @Schema(implementation = ResponseEntity.class)))),
+                    @ApiResponse(responseCode = "400", description = "Ошибка в запросе"),
+                    @ApiResponse(responseCode = "401", description = "Требуется авторизация"),
+                    @ApiResponse(responseCode = "403", description = "Доступ запрещен"),
+                    @ApiResponse(responseCode = "404", description = "Проект с таким ID не найден"),
+            })
     @DeleteMapping(value = "/id={id}")
-    public ResponseEntity remove(@PathVariable Long id) {
-        if (projectService.delete(id)) {
-            return new ResponseEntity(HttpStatus.OK);
+    public ResponseEntity remove(@ApiParam("id проекта") @PathVariable Long id) {
+        try {
+            projectService.delete(id);
+            return new ResponseEntity( HttpStatus.OK);
         }
-        else {
+        catch (NoSuchElementException exception){
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
     }
 
-    @ApiOperation(value = "Добавить для проекта ответственное подразделение")
+    @Operation(summary = "Добавить для проекта ответственное подразделение",
+            description = "Добавление ответственного подразделения для проекта",
+            responses = {
+                    @ApiResponse(responseCode = "200",
+                            description = "Удаление произошло успешно",
+                            content = @Content(mediaType = "application/json",
+                                    array = @ArraySchema(schema = @Schema(implementation = ResponseEntity.class)))),
+                    @ApiResponse(responseCode = "201", description = "Добавлено успешно"),
+                    @ApiResponse(responseCode = "400", description = "Ошибка в запросе"),
+                    @ApiResponse(responseCode = "401", description = "Требуется авторизация"),
+                    @ApiResponse(responseCode = "403", description = "Доступ запрещен"),
+                    @ApiResponse(responseCode = "404", description = "Проект с таким ID не найден"),
+            })
     @PostMapping(value = "/id={id}/department")
-    public ResponseEntity addDepartment(@PathVariable Long id, @RequestBody DepartmentDto departmentDto) {
+    public ResponseEntity addDepartment(@ApiParam("ID проекта") @PathVariable Long id,
+                                        @ApiParam("Информация о подразделении") @RequestBody DepartmentDto departmentDto) {
         try {
             departmentProjectService.save(DepartmentProjectDto.builder()
                     .project(id)
@@ -129,7 +166,10 @@ public class ProjectController {
                     .build());
         } catch (NoSuchElementException exception) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (IllegalArgumentException exception) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return ResponseEntity.ok("ok");
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
