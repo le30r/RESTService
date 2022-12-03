@@ -71,7 +71,7 @@ public class ProjectController {
 
     @ApiOperation(value = "Удалить информацию о проекте")
     @DeleteMapping(value = "/id={id}")
-    public ResponseEntity remove(Long id) {
+    public ResponseEntity remove(@PathVariable Long id) {
         if (projectService.delete(id)) {
             return new ResponseEntity(HttpStatus.OK);
         }
