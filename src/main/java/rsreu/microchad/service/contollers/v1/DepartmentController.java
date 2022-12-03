@@ -14,7 +14,7 @@ import rsreu.microchad.service.services.DepartmentsService;
 
 import java.util.NoSuchElementException;
 
-@Api
+@Api(tags = "Управление отделами")
 @RestController
 @RequestMapping("/api/v1/department")
 public class DepartmentController {
