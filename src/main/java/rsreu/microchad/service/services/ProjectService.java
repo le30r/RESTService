@@ -29,6 +29,7 @@ public class ProjectService {
             Project project = Project.builder()
                     .name(dto.getName())
                     .build();
+            repository.save(project);
             return true;
         }
         return false;
