@@ -1,6 +1,5 @@
 package rsreu.microchad.service.contollers.v1;
 
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import rsreu.microchad.service.dto.DepartmentDto;
 import rsreu.microchad.service.dto.DepartmentProjectDto;
 import rsreu.microchad.service.dto.ProjectDto;
-import rsreu.microchad.service.entities.Department;
 import rsreu.microchad.service.services.DepartmentProjectService;
 import rsreu.microchad.service.services.DepartmentsService;
 

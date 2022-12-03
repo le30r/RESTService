@@ -6,15 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import rsreu.microchad.service.dto.EmployeeDto;
 import rsreu.microchad.service.dto.RoleDto;
-import rsreu.microchad.service.entities.Role;
-import rsreu.microchad.service.services.EmployeeService;
 import rsreu.microchad.service.services.RoleService;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Objects;
 
 @RestController
 @Api
@@ -32,8 +28,7 @@ public class RoleController {
     public ResponseEntity get(@PathVariable Long id) {
         try {
             return new ResponseEntity<>(roleService.findById(id), HttpStatus.ACCEPTED);
-        }
-        catch (NoSuchElementException exception) {
+        } catch (NoSuchElementException exception) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
@@ -43,8 +38,7 @@ public class RoleController {
     public ResponseEntity update(@PathVariable Long id, @RequestBody RoleDto roleDto) {
         try {
             return new ResponseEntity<>(roleService.update(roleDto), HttpStatus.OK);
-        }
-        catch (NoSuchElementException exception) {
+        } catch (NoSuchElementException exception) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
@@ -52,7 +46,7 @@ public class RoleController {
     @ApiOperation(value = "Добавить роль")
     @PostMapping
     public ResponseEntity add(@RequestBody RoleDto roleDto) {
-        if(roleService.save(roleDto)) {
+        if (roleService.save(roleDto)) {
             return new ResponseEntity(HttpStatus.CREATED);
         } else {
             return new ResponseEntity(HttpStatus.CONFLICT);
